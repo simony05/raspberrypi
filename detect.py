@@ -32,17 +32,17 @@ while True:
     interpreter.invoke()
 
     # Get output data
-    output = interpreter.get_tensor(output_details[0]['index'])
-    print(output.shape)
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    print(output_data.shape)
 	
     # Draw bounding boxes on the frame
     for detection in output_data:
-		ymin, xmin, ymax, xmax, class_id, score, _, _ = detection
-		if scores[i] > 0.5:  # Confidence threshold
+        ymin, xmin, ymax, xmax, class_id, score, _, _ = detection
+        if score > 0.5:  # Confidence threshold
             (left, right, top, bottom) = (xmin * frame.shape[1], xmax * frame.shape[1],
                                           ymin * frame.shape[0], ymax * frame.shape[0])
             cv2.rectangle(frame, (int(left), int(top)), (int(right), int(bottom)), (255, 0, 0), 2)
-            cv2.putText(frame, f'Class: {int(classes[i])}, Score: {scores[i]:.2f}', 
+            cv2.putText(frame, f'Class: {int(class_id)}, Score: {score:.2f}', 
                         (int(left), int(top) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
 
     # Display the resulting frame
