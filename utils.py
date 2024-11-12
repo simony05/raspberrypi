@@ -15,8 +15,7 @@
 
 import cv2
 import numpy as np
-import mediapipe as mp
-from mediapipe.tasks.python import processor
+from tflite_support.task import processor
 
 
 _MARGIN = 10  # pixels
