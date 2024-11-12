@@ -40,19 +40,28 @@ detector = vision.ObjectDetector.create_from_options(options)
 tStart = time.time()
 
 while True:
-	ret, im = cam.read()
-	#im = picam2.capture.array()
+	im = picam2.capture.array()
 	#im = cv2.flip(im, -1)
 	imRGB = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+	imRGB = np.transpose(imRGB, (2, 0, 1))
+	imRGB = np.expand_dims(imRGB, axis = 0)
+	
+	# Convert to TensorImage and run object detection
 	#imTensor = vision.TensorImage.create_from_array(imRGB)
 	#detections = detector.detect(imTensor)
 	#image = utils.visualize(im, detections)
+	
+	# Display FPS
 	cv2.putText(im, str(int(fps)) + ' FPS', pos, font, height, myColor, weight)
 	cv2.imshow('Camera', im)
+	
 	if cv2.waitKey(1) == ord('q'):
 		break
+		
 	tEnd = time.time()
 	loopTime = tEnd - tStart
 	fps = 0.9 * fps + .1 * 1 / loopTime
+	tStart = time.time()
+	
 cv2.destroyAllWindows()
 
