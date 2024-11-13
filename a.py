@@ -7,7 +7,7 @@ from tflite_support.task import processor
 from tflite_support.task import vision
 import utils
 
-model = 'model.tflite'
+model = 'saved_model/simplified_integer_quant.tflite'
 num_threads = 4
 
 dispW = 640
@@ -43,8 +43,6 @@ while True:
 	im = picam2.capture.array()
 	#im = cv2.flip(im, -1)
 	imRGB = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-	imRGB = np.transpose(imRGB, (2, 0, 1))
-	imRGB = np.expand_dims(imRGB, axis = 0)
 	
 	# Convert to TensorImage and run object detection
 	#imTensor = vision.TensorImage.create_from_array(imRGB)
