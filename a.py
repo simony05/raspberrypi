@@ -7,7 +7,7 @@ from tflite_support.task import processor
 from tflite_support.task import vision
 import utils
 
-model = 'saved_model/simplified_integer_quant.tflite'
+model = 'saved_model/simplified_float32.tflite'
 num_threads = 4
 
 dispW = 640
