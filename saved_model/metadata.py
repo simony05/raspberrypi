@@ -5,9 +5,6 @@ import os
 
 model_file="saved_model/simplified_integer_quant.tflite"
 os.chdir("metadata_model")
-curr = os.getcwd()
-print(curr)
-
 
 # Creates model info.
 model_meta = _metadata_fb.ModelMetadataT()
@@ -61,7 +58,7 @@ output_stats.max = [1.0]
 output_stats.min = [0.0]
 output_meta.stats = output_stats
 label_file = _metadata_fb.AssociatedFileT()
-label_file.name = os.path.basename("metadata_model/shape_labels.txt")
+label_file.name = os.path.basename("shape_labels.txt")
 label_file.description = "Labels for objects that the model can recognize."
 label_file.type = _metadata_fb.AssociatedFileType.TENSOR_AXIS_LABELS
 output_meta.associatedFiles = [label_file]
@@ -80,5 +77,5 @@ metadata_buf = b.Output()
 
 populator = _metadata.MetadataPopulator.with_model_file(model_file)
 populator.load_metadata_buffer(metadata_buf)
-populator.load_associated_files(["metadata_model/shape_labels.txt"])
+populator.load_associated_files(["shape_labels.txt"])
 populator.populate()
